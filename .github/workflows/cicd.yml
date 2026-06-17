@@ -18,14 +18,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     needs: lint
+    strategy:
+      matrix:
+        environment: [dev, staging, prod]
     steps:
       - uses: actions/checkout@v4
-      - run: echo "Building code..."
+      - run: echo "Building code for ${{ matrix.environment }} environment..."
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
     steps:
       - uses: actions/checkout@v4
-      - run: echo "Deploying code..."
+      - run: echo "Deploying code for ${{ matrix.environment }} environment..."
        
